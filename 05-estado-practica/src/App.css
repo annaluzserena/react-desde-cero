@@ -1,0 +1,281 @@
+/* =========================================================
+   ENCUESTA — estética "Matrix" (terminal dark)
+   Paleta:
+     --matrix-black:   #050805  (fondo)
+     --matrix-panel:   #0a120a  (paneles)
+     --matrix-green:   #00ff66  (acento principal / texto)
+     --matrix-green-dim: #0a5f2c (bordes, texto secundario)
+     --matrix-glow:    #39ff8f  (glow / hover)
+   Tipografía: monoespaciada (terminal) en todo el componente.
+   Firma visual: "lluvia de código" de fondo + parpadeo tipo CRT
+   + cursor de terminal en el texto de las preguntas.
+   ========================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap");
+
+.encuesta {
+  --matrix-black: #050805;
+  --matrix-panel: #0a120a;
+  --matrix-green: #00ff66;
+  --matrix-green-dim: #0a5f2c;
+  --matrix-glow: #39ff8f;
+
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 3rem auto;
+  padding: 2.5rem 2rem;
+  background: var(--matrix-black);
+  border: 1px solid var(--matrix-green-dim);
+  border-radius: 4px;
+  font-family: "Share Tech Mono", "Courier New", monospace;
+  color: var(--matrix-green);
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(0, 255, 102, 0.05),
+    0 0 40px rgba(0, 255, 102, 0.08),
+    inset 0 0 60px rgba(0, 255, 102, 0.03);
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- lluvia de código de fondo (firma visual) --- */
+.encuesta::before {
+  content: "01 10 4B 7F E3 09 A2 5C 3D 88 1F 6E 00 FF 12 90 D4 27 5A E9";
+  position: absolute;
+  inset: -20% -10%;
+  writing-mode: vertical-rl;
+  font-size: 0.65rem;
+  line-height: 1.4rem;
+  letter-spacing: 0.6rem;
+  color: var(--matrix-green-dim);
+  opacity: 0.18;
+  white-space: pre-wrap;
+  word-break: break-all;
+  pointer-events: none;
+  animation: lluvia 14s linear infinite;
+  z-index: 0;
+}
+
+/* leve parpadeo tipo CRT sobre todo el panel */
+.encuesta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 255, 102, 0.025) 0px,
+    rgba(0, 255, 102, 0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  animation: parpadeo 6s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes lluvia {
+  from { transform: translateY(-10%); }
+  to   { transform: translateY(10%); }
+}
+
+@keyframes parpadeo {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.85; }
+}
+
+/* --- pregunta activa --- */
+.encuesta_pregunta {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  animation: aparecer 0.35s ease-out;
+}
+
+.encuesta_pregunta p {
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--matrix-green);
+  text-shadow: 0 0 6px rgba(0, 255, 102, 0.6), 0 0 18px rgba(0, 255, 102, 0.25);
+}
+
+/* prefijo tipo prompt de terminal + cursor parpadeante */
+.encuesta_pregunta p::before {
+  content: "> ";
+  color: var(--matrix-glow);
+}
+
+.encuesta_pregunta p::after {
+  content: "_";
+  margin-left: 2px;
+  animation: cursor 1s steps(1) infinite;
+}
+
+@keyframes cursor {
+  0%, 49%  { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- botones --- */
+.encuesta_boton {
+  min-width: 140px;
+  padding: 0.7rem 1.4rem;
+  margin: 0 0.4rem;
+  background: transparent;
+  border: 1px solid var(--matrix-green-dim);
+  border-radius: 2px;
+  color: var(--matrix-green);
+  font-family: inherit;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease,
+    box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.encuesta_boton:hover,
+.encuesta_boton:focus-visible {
+  background: rgba(0, 255, 102, 0.08);
+  border-color: var(--matrix-green);
+  color: var(--matrix-glow);
+  box-shadow: 0 0 12px rgba(0, 255, 102, 0.5);
+}
+
+.encuesta_boton:focus-visible {
+  outline: 2px solid var(--matrix-glow);
+  outline-offset: 2px;
+}
+
+.encuesta_boton:active {
+  background: rgba(0, 255, 102, 0.18);
+  transform: translateY(1px);
+}
+
+/* contenedor de botones (los dos por pregunta) */
+.encuesta_pregunta > .encuesta_boton:first-of-type {
+  margin-right: 0.6rem;
+}
+
+.volver {
+  max-width: fit-content;
+  align-self: center;
+  margin-top: 1.75rem;
+}
+
+/* --- pantalla de resultados --- */
+.respuestas {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  animation: aparecer 0.4s ease-out;
+}
+
+.respuestas p {
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  border-left: 2px solid var(--matrix-green-dim);
+  background: rgba(0, 255, 102, 0.03);
+  font-size: 0.95rem;
+  color: var(--matrix-green);
+}
+
+.respuestas p::before {
+  content: "$ ";
+  color: var(--matrix-green-dim);
+}
+
+/* botón "Reiniciar" (sin clase propia en el JSX) */
+.respuestas button {
+  align-self: center;
+  margin-top: 1rem;
+  min-width: 140px;
+  padding: 0.7rem 1.4rem;
+  background: transparent;
+  border: 1px solid var(--matrix-green-dim);
+  border-radius: 2px;
+  color: var(--matrix-green);
+  font-family: inherit;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease,
+    box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.respuestas button:hover,
+.respuestas button:focus-visible {
+  background: rgba(0, 255, 102, 0.08);
+  border-color: var(--matrix-green);
+  color: var(--matrix-glow);
+  box-shadow: 0 0 12px rgba(0, 255, 102, 0.5);
+}
+
+/* --- barra de estado --- */
+.encuesta_barra {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 4px;
+  margin-bottom: 2rem;
+  background: rgba(0, 255, 102, 0.08);
+  border: 1px solid var(--matrix-green-dim);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.encuesta_barra_fill {
+  height: 100%;
+  width: var(--progreso, 0%);
+  background: linear-gradient(90deg, var(--matrix-green-dim), var(--matrix-green));
+  box-shadow: 0 0 8px rgba(0, 255, 102, 0.7);
+  transition: width 0.4s ease;
+}
+
+/* efecto "escaneo" que recorre la barra, como un cursor de progreso */
+.encuesta_barra_fill::after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 100%;
+  margin-left: auto;
+  background: var(--matrix-glow);
+  box-shadow: 0 0 6px var(--matrix-glow), 0 0 12px var(--matrix-glow);
+}
+
+/* --- responsive --- */
+@media (max-width: 520px) {
+  .encuesta {
+    max-width: 92vw;
+    padding: 2rem 1.25rem;
+  }
+
+  .encuesta_boton {
+    min-width: 110px;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* --- respeto a preferencias de movimiento reducido --- */
+@media (prefers-reduced-motion: reduce) {
+  .encuesta::before,
+  .encuesta::after,
+  .encuesta_pregunta p::after {
+    animation: none;
+  }
+}
