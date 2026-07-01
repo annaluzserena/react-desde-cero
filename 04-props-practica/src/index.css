@@ -1,0 +1,97 @@
+/* =========================================================
+   Galería de perfiles — estilos simples y limpios
+   No requiere cambios en ListaPerfiles.jsx, Perfil.jsx ni
+   Tarjeta.jsx. Se apoya en las clases/estructura existentes:
+   - .lista-perfiles (contenedor + h1)
+   - div (envoltorio que renderiza <Tarjeta>, sin className)
+   - .perfil (span emoji + p con los datos)
+   ========================================================= */
+
+.lista-perfiles {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 3rem;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: #1f2933;
+    background-color: #f7f8fa;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: space-between;
+}
+
+.lista-perfiles h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+    flex: 0 0 100%;
+}
+
+/* Cada <Tarjeta> renderiza un div simple: lo usamos como grilla de tarjetas */
+.lista-perfiles > div {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin: 1em;
+}
+
+/* Cada tarjeta individual (el div que envuelve a Perfil) */
+.lista-perfiles > div > div {
+    background-color: #ffffff;
+    border: 1px solid #e4e7eb;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.lista-perfiles > div > div:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+/* Contenido del perfil */
+.perfil {
+    padding: 1.25rem 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.35rem;
+}
+
+.perfil span {
+    font-size: 2rem;
+    margin-bottom: 0.35rem;
+}
+
+.perfil p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.4;
+    color: #364152;
+}
+
+/* La primera línea (Nombre) se destaca un poco más */
+.perfil p:first-of-type {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* La última línea (Disponible / No disponible) como pequeña etiqueta */
+.perfil p:last-of-type {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    background-color: #eef1f4;
+    color: #4b5563;
+}
+
+@media (max-width: 480px) {
+    .lista-perfiles > div {
+        grid-template-columns: 1fr;
+    }
+}
