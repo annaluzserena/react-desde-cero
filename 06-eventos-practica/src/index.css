@@ -1,0 +1,78 @@
+/* ============================================
+   matrix-rain.css - Lluvia de fondo tipo Matrix
+   Importar en el mismo lugar que Eventos.css:
+   import "./matrix-rain.css";
+   No requiere tocar el JSX: se aplica al <body>.
+   ============================================ */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #000000;
+}
+
+body {
+    position: relative;
+    overflow-x: hidden;
+    isolation: isolate;
+}
+
+/* Capa 1: lluvia rápida y brillante (primer plano) */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIzMjAiIHZpZXdCb3g9IjAgMCAyNCAzMjAiPgogIDxzdHlsZT4KICAgIHRleHQgeyBmb250LWZhbWlseTogJ0NvdXJpZXIgTmV3JywgbW9ub3NwYWNlOyBmb250LXNpemU6IDE2cHg7IGZpbGw6ICMwMGZmNDE7IH0KICA8L3N0eWxlPgogIDx0ZXh0IHg9IjQiIHk9IjE2Ij7vvoo8L3RleHQ+CiAgPHRleHQgeD0iNCIgeT0iMzQiPjM8L3RleHQ+CiAgPHRleHQgeD0iNCIgeT0iNTIiPu+9uTwvdGV4dD4KICA8dGV4dCB4PSI0IiB5PSI3MCI+776BPC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9Ijg4Ij7vvoA8L3RleHQ+CiAgPHRleHQgeD0iNCIgeT0iMTA2Ij7vvpI8L3RleHQ+CiAgPHRleHQgeD0iNCIgeT0iMTI0Ij43PC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9IjE0MiI+772mPC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9IjE2MCI+7724PC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9IjE3OCI+MDwvdGV4dD4KICA8dGV4dCB4PSI0IiB5PSIxOTYiPu+9sjwvdGV4dD4KICA8dGV4dCB4PSI0IiB5PSIyMTQiPu+9vTwvdGV4dD4KICA8dGV4dCB4PSI0IiB5PSIyMzIiPu+9szwvdGV4dD4KICA8dGV4dCB4PSI0IiB5PSIyNTAiPjE8L3RleHQ+CiAgPHRleHQgeD0iNCIgeT0iMjY4Ij7vvpw8L3RleHQ+CiAgPHRleHQgeD0iNCIgeT0iMjg2Ij45PC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9IjMwNCI+776dPC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9IjMyMCI+NTwvdGV4dD4KPC9zdmc+Cg==");
+    background-repeat: repeat;
+    background-size: 24px 320px;
+    opacity: 0.75;
+    filter: drop-shadow(0 0 4px rgba(0, 255, 65, 0.6));
+    animation: caerLluvia1 6s linear infinite;
+    pointer-events: none;
+}
+
+/* Capa 2: lluvia media, desplazada, más tenue */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-image:
+        url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyODAiIHZpZXdCb3g9IjAgMCAyNCAyODAiPgogIDxzdHlsZT4KICAgIHRleHQgeyBmb250LWZhbWlseTogJ0NvdXJpZXIgTmV3JywgbW9ub3NwYWNlOyBmb250LXNpemU6IDE2cHg7IGZpbGw6ICMwMGZmNDE7IH0KICA8L3N0eWxlPgogIDx0ZXh0IHg9IjQiIHk9IjE2Ij7vvbU8L3RleHQ+CiAgPHRleHQgeD0iNCIgeT0iMzQiPjQ8L3RleHQ+CiAgPHRleHQgeD0iNCIgeT0iNTIiPu++jjwvdGV4dD4KICA8dGV4dCB4PSI0IiB5PSI3MCI+7720PC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9Ijg4Ij42PC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9IjEwNiI+776VPC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9IjEyNCI+7723PC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9IjE0MiI+MjwvdGV4dD4KICA8dGV4dCB4PSI0IiB5PSIxNjAiPu++iDwvdGV4dD4KICA8dGV4dCB4PSI0IiB5PSIxNzgiPu++jzwvdGV4dD4KICA8dGV4dCB4PSI0IiB5PSIxOTYiPjg8L3RleHQ+CiAgPHRleHQgeD0iNCIgeT0iMjE0Ij7vvpE8L3RleHQ+CiAgPHRleHQgeD0iNCIgeT0iMjMyIj7vvpc8L3RleHQ+CiAgPHRleHQgeD0iNCIgeT0iMjUwIj7vvb88L3RleHQ+CiAgPHRleHQgeD0iNCIgeT0iMjY4Ij4zPC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9IjI4MCI+776TPC90ZXh0Pgo8L3N2Zz4K"),
+        url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIzNjAiIHZpZXdCb3g9IjAgMCAyNCAzNjAiPgogIDxzdHlsZT4KICAgIHRleHQgeyBmb250LWZhbWlseTogJ0NvdXJpZXIgTmV3JywgbW9ub3NwYWNlOyBmb250LXNpemU6IDE2cHg7IGZpbGw6ICMwMGZmNDE7IH0KICA8L3N0eWxlPgogIDx0ZXh0IHg9IjQiIHk9IjE2Ij7vvoI8L3RleHQ+CiAgPHRleHQgeD0iNCIgeT0iMzQiPu++iDwvdGV4dD4KICA8dGV4dCB4PSI0IiB5PSI1MiI+OTwvdGV4dD4KICA8dGV4dCB4PSI0IiB5PSI3MCI+776MPC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9Ijg4Ij7vvpQ8L3RleHQ+CiAgPHRleHQgeD0iNCIgeT0iMTA2Ij4wPC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9IjEyNCI+776WPC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9IjE0MiI+776bPC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9IjE2MCI+NTwvdGV4dD4KICA8dGV4dCB4PSI0IiB5PSIxNzgiPu++gzwvdGV4dD4KICA8dGV4dCB4PSI0IiB5PSIxOTYiPu++hjwvdGV4dD4KICA8dGV4dCB4PSI0IiB5PSIyMTQiPjE8L3RleHQ+CiAgPHRleHQgeD0iNCIgeT0iMjMyIj7vvos8L3RleHQ+CiAgPHRleHQgeD0iNCIgeT0iMjUwIj7vvb48L3RleHQ+CiAgPHRleHQgeD0iNCIgeT0iMjY4Ij43PC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9IjI4NiI+7729PC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9IjMwNCI+776APC90ZXh0PgogIDx0ZXh0IHg9IjQiIHk9IjMyMiI+MzwvdGV4dD4KICA8dGV4dCB4PSI0IiB5PSIzNDAiPu++nTwvdGV4dD4KICA8dGV4dCB4PSI0IiB5PSIzNjAiPjY8L3RleHQ+Cjwvc3ZnPgo=");
+    background-repeat: repeat, repeat;
+    background-position: 12px 0, 30px 0;
+    background-size: 24px 280px, 24px 360px;
+    opacity: 0.4;
+    filter: blur(0.3px);
+    animation: caerLluvia2 12s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes caerLluvia1 {
+    from { background-position-y: 0; }
+    to   { background-position-y: 320px; }
+}
+
+/* Una sola animación mueve las dos capas del ::after a la vez; el efecto
+   de "distinta velocidad" lo aporta el alto distinto de cada tile
+   (280px vs 360px), así no se ven sincronizadas. */
+@keyframes caerLluvia2 {
+    from { background-position: 12px 0,   30px 0; }
+    to   { background-position: 12px 280px, 30px 360px; }
+}
+
+/* Viñeta oscura para que el centro (donde vive el componente) resalte */
+.matrix-vignette {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0.75) 70%,
+        rgba(0, 0, 0, 0.95) 100%
+    );
+}
