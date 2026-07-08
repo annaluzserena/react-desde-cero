@@ -1,0 +1,334 @@
+/* =========================================================
+   CATÁLOGO — Estética Star Wars
+   Paleta: negro espacial, dorado icónico, azul sable láser
+   ========================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap");
+
+:root {
+  --sw-bg: #05050a;
+  --sw-bg-panel: #101018;
+  --sw-bg-panel-hover: #16161f;
+  --sw-gold: #ffe81f;
+  --sw-gold-dim: #a89a2e;
+  --sw-blue: #4cc9f0;
+  --sw-text: #ececec;
+  --sw-text-dim: #9a9aa5;
+  --sw-border: rgba(255, 232, 31, 0.18);
+
+  --font-display: "Orbitron", sans-serif;
+  --font-body: "Rajdhani", sans-serif;
+}
+
+/* ---------- Estilos globales del documento ---------- */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--sw-bg);
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, #ffffff55 0%, transparent 60%),
+    radial-gradient(1px 1px at 80% 10%, #ffffff33 0%, transparent 60%),
+    radial-gradient(2px 2px at 60% 70%, #ffffff44 0%, transparent 60%),
+    radial-gradient(1px 1px at 30% 85%, #ffffff33 0%, transparent 60%),
+    radial-gradient(1px 1px at 90% 60%, #ffffff55 0%, transparent 60%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: var(--sw-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 3rem 1.5rem;
+}
+
+/* ---------- Catálogo ---------- */
+
+.catalogo {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ---------- Filtros ---------- */
+
+.catalogo-filtros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  align-items: start;
+  gap: 1.5rem 2rem;
+  padding: 1.25rem 1.5rem;
+  background-color: var(--sw-bg-panel);
+  border: 1px solid var(--sw-border);
+  border-left: 3px solid var(--sw-gold);
+  border-radius: 4px;
+}
+
+.catalogo-filtros_grupo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.85rem;
+  border-left: 2px solid rgba(255, 232, 31, 0.15);
+}
+
+.catalogo-filtros label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sw-gold-dim);
+}
+
+.catalogo-filtros_grupo:focus-within {
+  border-left-color: var(--sw-blue);
+}
+
+.catalogo-filtros_grupo:focus-within label {
+  color: var(--sw-blue);
+}
+
+.catalogo-filtros select,
+.catalogo-filtros input[type="text"] {
+  width: 100%;
+  background-color: var(--sw-bg);
+  color: var(--sw-text);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: 1px solid var(--sw-border);
+  border-radius: 3px;
+  padding: 0.55rem 0.75rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.catalogo-filtros select:hover,
+.catalogo-filtros input[type="text"]:hover {
+  border-color: var(--sw-gold-dim);
+}
+
+.catalogo-filtros select:focus,
+.catalogo-filtros input[type="text"]:focus {
+  outline: none;
+  border-color: var(--sw-blue);
+  box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.2);
+}
+
+.catalogo-filtros select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--sw-gold) 50%),
+    linear-gradient(135deg, var(--sw-gold) 50%, transparent 50%);
+  background-position: calc(100% - 18px) center, calc(100% - 13px) center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  padding-right: 2rem;
+}
+
+.catalogo-filtros select option {
+  background-color: var(--sw-bg-panel);
+  color: var(--sw-text);
+}
+
+/* control de rango (rating mínimo) */
+.catalogo-filtros input[type="range"] {
+  width: 100%;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(
+    to right,
+    var(--sw-gold) 0%,
+    var(--sw-gold-dim) 100%
+  );
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+}
+
+.catalogo-filtros input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--sw-blue);
+  box-shadow: 0 0 8px 1px rgba(76, 201, 240, 0.7);
+  border: 2px solid var(--sw-bg);
+  transition: transform 0.2s ease;
+}
+
+.catalogo-filtros input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.catalogo-filtros input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--sw-blue);
+  box-shadow: 0 0 8px 1px rgba(76, 201, 240, 0.7);
+  border: 2px solid var(--sw-bg);
+  cursor: pointer;
+}
+
+.catalogo-filtros_rating {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.catalogo-filtros_rating input[type="range"] {
+  flex: 1 1 0;
+  width: auto;
+  min-width: 0;
+}
+
+.catalogo-filtros_rating-valor {
+  min-width: 2.4rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--sw-blue);
+  border: 1px solid rgba(76, 201, 240, 0.4);
+  border-radius: 3px;
+  padding: 0.25rem 0.4rem;
+}
+
+.catalogo-lista {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1080px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1.5rem;
+}
+
+.catalogo-item {
+  position: relative;
+  background-color: var(--sw-bg-panel);
+  border: 1px solid var(--sw-border);
+  border-top: 3px solid var(--sw-gold);
+  border-radius: 4px;
+  padding: 1.25rem 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease,
+    background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.catalogo-item:hover {
+  transform: translateY(-4px);
+  background-color: var(--sw-bg-panel-hover);
+  border-top-color: var(--sw-blue);
+  box-shadow: 0 0 18px -4px rgba(76, 201, 240, 0.45);
+}
+
+/* filo de "sable láser" que aparece al pasar el mouse */
+.catalogo-item::after {
+  content: "";
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 0;
+  height: 2px;
+  background: var(--sw-blue);
+  box-shadow: 0 0 8px 1px var(--sw-blue);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.catalogo-item:hover::after {
+  transform: scaleX(1);
+}
+
+.catalogo-item_titulo {
+  margin: 0 0 0.25rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sw-gold);
+  line-height: 1.35;
+}
+
+.catalogo-item_anio {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--sw-text-dim);
+  font-weight: 500;
+}
+
+.catalogo-item_genero {
+  margin: 0;
+  width: fit-content;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--sw-blue);
+  border: 1px solid rgba(76, 201, 240, 0.4);
+  border-radius: 999px;
+  padding: 0.15rem 0.65rem;
+}
+
+.catalogo-item_rating {
+  margin: 0.35rem 0 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--sw-text);
+}
+
+.catalogo-item_rating::before {
+  content: "★ ";
+  color: var(--sw-gold);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 480px) {
+  body {
+    padding: 2rem 1rem;
+  }
+
+  .catalogo-lista {
+    grid-template-columns: 1fr;
+  }
+
+  .catalogo-filtros {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Accesibilidad ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .catalogo-item,
+  .catalogo-item::after {
+    transition: none;
+  }
+}
+
+.catalogo-item:focus-within {
+  outline: 2px solid var(--sw-blue);
+  outline-offset: 2px;
+}
+
+.catalogo-filtros input[type="range"]:focus-visible {
+  outline: 2px solid var(--sw-blue);
+  outline-offset: 4px;
+}
