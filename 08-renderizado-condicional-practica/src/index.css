@@ -1,0 +1,360 @@
+/* ============================================================
+   CLIMA — tema galáctico
+   Paleta: negro espacial, dorado crawl, azul sable, rojo alerta
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600&display=swap");
+
+:root {
+  --space-black: #05060f;
+  --panel-navy: #0c1030;
+  --panel-navy-light: #141a45;
+  --gold: #ffe81f;
+  --gold-dim: #a89b2f;
+  --saber-blue: #3ecbf2;
+  --alert-red: #ff3b30;
+  --text-soft: #c7cdea;
+  --border-glow: rgba(62, 203, 242, 0.35);
+  --bg-deep: #020208;
+  --bg-nebula-1: rgba(62, 203, 242, 0.10);
+  --bg-nebula-2: rgba(255, 232, 31, 0.05);
+  --bg-nebula-3: rgba(120, 60, 200, 0.12);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  /* nebulosas de color muy tenues + degradado radial de profundidad */
+  background:
+    radial-gradient(ellipse 60% 40% at 15% 15%, var(--bg-nebula-3), transparent 60%),
+    radial-gradient(ellipse 50% 35% at 85% 20%, var(--bg-nebula-1), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 50% 90%, var(--bg-nebula-2), transparent 60%),
+    radial-gradient(circle at 50% 30%, #0a0e27 0%, var(--bg-deep) 70%);
+
+  background-attachment: fixed;
+}
+
+/* ---------- campo de estrellas (dos capas, distinto tamaño/velocidad) ---------- */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* estrellas pequeñas, parpadeo lento */
+body::before {
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, #fff, transparent),
+    radial-gradient(1px 1px at 25% 45%, #fff, transparent),
+    radial-gradient(1px 1px at 40% 10%, #fff, transparent),
+    radial-gradient(1px 1px at 55% 70%, #fff, transparent),
+    radial-gradient(1px 1px at 70% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 85% 60%, #fff, transparent),
+    radial-gradient(1px 1px at 95% 15%, #fff, transparent),
+    radial-gradient(1px 1px at 5% 80%, #fff, transparent),
+    radial-gradient(1px 1px at 60% 90%, #fff, transparent),
+    radial-gradient(1px 1px at 33% 85%, #fff, transparent);
+  background-repeat: repeat;
+  background-size: 600px 600px;
+  opacity: 0.5;
+  animation: twinkle 5s ease-in-out infinite;
+}
+
+/* estrellas grandes, con leve deriva vertical (sensación de viaje espacial) */
+body::after {
+  background-image:
+    radial-gradient(1.5px 1.5px at 20% 20%, var(--saber-blue, #3ecbf2), transparent),
+    radial-gradient(1.5px 1.5px at 48% 60%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 75% 35%, var(--gold, #ffe81f), transparent),
+    radial-gradient(1.5px 1.5px at 90% 80%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 15% 70%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 62% 15%, #fff, transparent);
+  background-repeat: repeat;
+  background-size: 900px 900px;
+  animation: drift 90s linear infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.75; }
+}
+
+@keyframes drift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 900px; }
+}
+
+/* el panel .clima queda por encima del starfield */
+.clima {
+  position: relative;
+  z-index: 1;
+}
+
+/* respeta accesibilidad: sin movimiento si el usuario lo pidió */
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    animation: none;
+  }
+}
+
+/* ---------- contenedor principal ---------- */
+.clima {
+  --star-1: 12% 20%, 78% 8%, 33% 62%, 90% 45%, 55% 85%, 5% 70%, 65% 30%;
+  position: relative;
+  width: min(420px, 90vw);
+  margin: 3rem auto;
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  background:
+    radial-gradient(2px 2px at 12% 20%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 78% 8%, #fff, transparent),
+    radial-gradient(2px 2px at 33% 62%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 90% 45%, #fff, transparent),
+    radial-gradient(2px 2px at 55% 85%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 5% 70%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 65% 30%, #fff, transparent),
+    linear-gradient(180deg, var(--space-black), var(--panel-navy) 70%, var(--space-black));
+
+  border: 1px solid var(--border-glow);
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+    0 0 24px rgba(62, 203, 242, 0.15),
+    0 12px 40px rgba(0, 0, 0, 0.6);
+  font-family: "Rajdhani", sans-serif;
+  overflow: hidden;
+}
+
+/* línea de escaneo tipo holograma */
+.clima::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(62, 203, 242, 0.06) 50%,
+    transparent 100%
+  );
+  background-size: 100% 6px;
+  pointer-events: none;
+  animation: scan 6s linear infinite;
+}
+
+@keyframes scan {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 240px; }
+}
+
+/* ---------- input ---------- */
+.clima input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glow);
+  border-radius: 6px;
+  color: var(--text-soft);
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.clima input::placeholder {
+  color: rgba(199, 205, 234, 0.45);
+}
+
+.clima input:focus {
+  border-color: var(--saber-blue);
+  box-shadow: 0 0 12px rgba(62, 203, 242, 0.45);
+}
+
+/* ---------- botón ---------- */
+.clima button {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  background: linear-gradient(180deg, var(--panel-navy-light), var(--panel-navy));
+  border: 1px solid var(--gold-dim);
+  border-radius: 6px;
+  color: var(--gold);
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clima button:hover {
+  border-color: var(--gold);
+  color: var(--space-black);
+  background: var(--gold);
+  box-shadow: 0 0 18px rgba(255, 232, 31, 0.5);
+}
+
+.clima button:active {
+  transform: translateY(1px);
+}
+
+/* ---------- mensajes de estado ---------- */
+.clima_info {
+  margin: 0;
+  text-align: center;
+  color: var(--text-soft);
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+}
+
+/* mensaje de carga (crawl dorado, todo el panel) */
+.clima > .clima_info:only-child {
+  padding: 1.5rem 0;
+  color: var(--gold);
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ---------- resultado ---------- */
+.clima_ciudad {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  background: rgba(62, 203, 242, 0.06);
+  border: 1px solid var(--border-glow);
+  border-left: 3px solid var(--saber-blue);
+  border-radius: 4px;
+}
+
+.clima_ciudad p {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+.clima_ciudad_nombre {
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.1rem !important;
+  color: var(--gold) !important;
+}
+
+.clima_ciudad_temp {
+  color: var(--gold-dim) !important;
+}
+
+.clima_ciudad_humedad {
+  color: var(--saber-blue) !important;
+}
+
+.clima_ciudad_desc {
+  color: var(--text-soft);
+  font-style: italic;
+}
+
+.historial {
+  width: 100%;
+  margin-top: 1.25rem;
+  padding: 0.9rem 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(255, 232, 31, 0.25);
+  border-radius: 4px;
+}
+
+/* título "Historial de búsqueda" (primer <p> del bloque) */
+.historial > p:first-child {
+  margin: 0 0 0.15rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border-glow);
+  color: var(--gold-dim);
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* cada ciudad registrada */
+.historial_ciudad {
+  margin: 0;
+  padding: 0.3rem 0.6rem;
+  color: var(--text-soft);
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  background: rgba(62, 203, 242, 0.05);
+  border-left: 2px solid var(--saber-blue);
+  border-radius: 2px;
+  text-transform: capitalize;
+}
+
+.historial_ciudad::before {
+  content: "› ";
+  color: var(--saber-blue);
+}
+
+/* botón "Borrar historial": mismo lenguaje visual, tono de alerta */
+.historial button {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background: transparent;
+  border: 1px solid var(--alert-red);
+  border-radius: 6px;
+  color: var(--alert-red);
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.historial button:hover {
+  background: var(--alert-red);
+  color: var(--space-black);
+  box-shadow: 0 0 14px rgba(255, 59, 48, 0.5);
+}
+
+.historial button:active {
+  transform: translateY(1px);
+}
+
+/* si no hay historial, evitar que el bloque quede vacío y pesado */
+.historial:has(> p:only-child) {
+  border-style: solid;
+  opacity: 0.6;
+}
