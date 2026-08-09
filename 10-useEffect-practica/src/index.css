@@ -1,0 +1,234 @@
+/* ============================================================
+   COTIZACIÓN — TEMA MATRIX
+   Paleta: negro absoluto + verde fósforo + variantes de señal
+   Tipografía: monoespaciada, estilo terminal
+   ============================================================ */
+
+:root {
+  --matrix-black: #000000;
+  --matrix-black-soft: #060a06;
+  --matrix-green: #00ff41;
+  --matrix-green-dim: #0a3d0a;
+  --matrix-green-bright: #7fff9a;
+  --matrix-red: #ff2b4d;
+  --matrix-font: "Share Tech Mono", "Courier New", monospace;
+}
+
+body {
+  background-color: var(--matrix-black);
+}
+
+/* ---------- Contenedor principal ---------- */
+
+.cotizacion {
+  position: relative;
+  max-width: 640px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--matrix-black);
+  border: 1px solid var(--matrix-green-dim);
+  border-radius: 4px;
+  color: var(--matrix-green);
+  font-family: var(--matrix-font);
+  overflow: hidden;
+  box-shadow:
+    0 0 12px rgba(0, 255, 65, 0.15),
+    inset 0 0 40px rgba(0, 255, 65, 0.04);
+}
+
+/* Efecto scanlines sutil sobre todo el panel */
+.cotizacion::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 255, 65, 0.035) 0px,
+    rgba(0, 255, 65, 0.035) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+}
+
+/* ---------- Título ---------- */
+
+.cotizacion-titulo {
+  margin: 0 0 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  text-align: center;
+  color: var(--matrix-green-bright);
+  text-shadow:
+    0 0 4px var(--matrix-green),
+    0 0 12px var(--matrix-green),
+    0 0 24px rgba(0, 255, 65, 0.5);
+  animation: parpadeo 4s infinite steps(1);
+}
+
+.cotizacion-titulo::before {
+  content: "> ";
+  opacity: 0.7;
+}
+
+.cotizacion-titulo::after {
+  content: "_";
+  animation: cursor 1s steps(1) infinite;
+}
+
+.pausa {
+  color: var(--matrix-red);
+  justify-self: center;
+}
+
+/* ---------- Lista de cotizaciones ---------- */
+
+.cotizacion-lista {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.cotizacion-lista_item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding: 0.7rem 1rem;
+  background: var(--matrix-black-soft);
+  border: 1px solid var(--matrix-green-dim);
+  border-left: 3px solid var(--matrix-green);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cotizacion-lista_item:hover {
+  background: rgba(0, 255, 65, 0.06);
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.25);
+}
+
+.cotizacion-lista_item p {
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+}
+
+.cotizacion-lista_item p:first-child {
+  font-weight: 700;
+  color: var(--matrix-green-bright);
+}
+
+/* Cambio positivo / negativo */
+
+.verde {
+  color: var(--matrix-green);
+  text-shadow: 0 0 6px rgba(0, 255, 65, 0.7);
+}
+
+.rojo {
+  color: var(--matrix-red);
+  text-shadow: 0 0 6px rgba(255, 43, 77, 0.7);
+}
+
+/* ---------- Botón de control ---------- */
+
+.toggle-activo {
+  display: block;
+  margin: 0 auto 1.5rem;
+  padding: 0.6rem 1.6rem;
+  background: transparent;
+  border: 1px solid var(--matrix-green);
+  color: var(--matrix-green);
+  font-family: var(--matrix-font);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-activo:hover {
+  background: var(--matrix-green);
+  color: var(--matrix-black);
+  box-shadow: 0 0 16px rgba(0, 255, 65, 0.6);
+}
+
+.toggle-activo:active {
+  transform: scale(0.97);
+}
+
+/* ---------- Historial ---------- */
+
+.historial {
+  list-style: none;
+  margin: 0;
+  padding: 1rem;
+  background: var(--matrix-black-soft);
+  border-top: 1px dashed var(--matrix-green-dim);
+  display: grid;
+  gap: 1rem;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.historial_item {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  border-left: 2px solid var(--matrix-green-dim);
+  padding-left: 0.75rem;
+}
+
+.historial_item-nombre {
+  margin: 0 0 0.25rem;
+  font-weight: 700;
+  color: var(--matrix-green-bright);
+  letter-spacing: 0.08em;
+}
+
+.historial_item p:not(.historial_item-nombre) {
+  margin: 0;
+  color: rgba(0, 255, 65, 0.55);
+}
+
+/* Barra de scroll estilo terminal */
+.historial::-webkit-scrollbar {
+  width: 6px;
+}
+
+.historial::-webkit-scrollbar-track {
+  background: var(--matrix-black);
+}
+
+.historial::-webkit-scrollbar-thumb {
+  background: var(--matrix-green-dim);
+}
+
+/* ---------- Animaciones ---------- */
+
+@keyframes parpadeo {
+  0%, 92%, 100% { opacity: 1; }
+  94% { opacity: 0.4; }
+  96% { opacity: 0.9; }
+}
+
+@keyframes cursor {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 480px) {
+  .cotizacion {
+    padding: 1.25rem;
+    margin: 1rem;
+  }
+
+  .cotizacion-lista_item {
+    grid-template-columns: 1fr;
+  }
+}
